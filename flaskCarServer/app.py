@@ -17,6 +17,7 @@ def hello_world():
 @app.route('/threshold', methods=['POST'])
 def posts_threshold():
     distance_threshold = json.loads(list(request.form.to_dict().keys())[0])['stuff']
+    print('Setting threshold to: ' + str(distance_threshold))
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
@@ -29,6 +30,7 @@ with GPIO() as gpio_interface:
 
         closest_distance = distances[0] if len(distances) > 0 else None
 
+        print('Closest distance is: ' + str(closest_distance))
         if closest_distance and closest_distance < distance_threshold:
             print('Braking')
             gpio_interface.brake()
