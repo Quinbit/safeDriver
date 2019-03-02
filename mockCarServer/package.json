@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bleno": "^0.5.0",
-    "bluetooth-hci-socket": "git+https://github.com/jrobeson/node-bluetooth-hci-socket.git#fix-builds-for-node-10"
+    "bleno": "^0.5.0"
   }
 }
