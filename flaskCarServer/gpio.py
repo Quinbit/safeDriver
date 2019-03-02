@@ -10,15 +10,15 @@ class GPIO():
 
     def __enter__(self):
         self.GP = GPIOProcessor()
-        self.forward_pin = self.GP.getPin36()
+        self.forward_pin = self.GP.getPin25()
         self.forward_pin.out()
-        self.right_high = self.GP.getPin12()
+        self.right_high = self.GP.getPin26()
         self.right_high.out()
-        self.right_low = self.GP.getPin13()
+        self.right_low = self.GP.getPin27()
         self.right_low.out()
-        self.left_high = self.GP.getPin69()
+        self.left_high = self.GP.getPin28()
         self.left_high.out()
-        self.left_low = self.GP.getPin115()
+        self.left_low = self.GP.getPin29()
         self.left_low.out()
         pass
 
