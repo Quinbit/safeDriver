@@ -3,8 +3,6 @@ from flask import Flask, request
 from math import sqrt
 from statistics import mean
 
-import matplotlib.pyplot as plt
-
 app = Flask(__name__)
 
 count_threshold = 5
@@ -23,12 +21,8 @@ def post_points():
     points = [{'x': p[0], 'y': p[1], 'z': p[2]} for p in json.loads(list(request.form.to_dict().keys())[0])['stuff']]
     norms = [sqrt((p['x'] * p['x']) + (p['y'] * p['y']) + (p['z'] * p['z'])) for p in points]
     print(mean(norms))
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-
-    for p in points:
-        ax.scatter(p['x'], p['y'], p['z'])
-    plt.show()
+    print('x: ' + str(mean(p['x'] for p in points)))
+    print('y: ' + str(mean(p['y'] for p in points)))
+    print('z: ' + str(mean(p['z'] for p in points)))
 
     return ''
