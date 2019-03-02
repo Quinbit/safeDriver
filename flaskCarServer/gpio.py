@@ -26,14 +26,15 @@ class GPIO():
         self.GP.cleanup()
 
     def brake(self):
-        self.forward_pin.off()
+        self.forward_pin.low()
 
     def unbrake(self):
-        self.forward_pin.on()
+        self.forward_pin.high()
 
     def turn_left(self):
-        self.left_low.off()
-        self.left_high.on()
+        self.left_low.low()
+        self.left_high.high()
 
     def turn_right(self):
-        pass
+        self.right_low.low()
+        self.right_high.high()
