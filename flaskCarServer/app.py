@@ -30,12 +30,12 @@ def post_points():
     return ''
 
 with GPIO() as gpio_interface:
-    @app.route('/brake', methods=['POST'])
+    @app.route('/brake', methods=['GET', 'POST'])
     def brake():
         gpio_interface.brake()
         return "Brake engaged"
 
-    @app.route("/unbrake", methods=['POST'])
+    @app.route("/unbrake", methods=['GET', 'POST'])
     def unbrake():
         gpio_interface.unbrake()
         return "Brake disengaged"
