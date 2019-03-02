@@ -20,12 +20,10 @@ class GPIO():
         self.left_high.out()
         self.left_low = self.GP.getPin30()
         self.left_low.out()
-        pass
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.GP.cleanup()
-        pass
-
 
     def brake(self):
         self.forward_pin.off()
