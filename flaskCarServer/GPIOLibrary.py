@@ -1,8 +1,8 @@
 class GPIOProcessor:
-    '''This is the GPIO Processor class.  IT is used to create GPIO objects and
+    """This is the GPIO Processor class.  IT is used to create GPIO objects and
     keep track of them. Pins 23-34 have the their corresponding GPIO number
     stored so that they may easily called with the appropriate getPin method.
-    '''
+    """
 
     def __init__(self):
         self.GPIOList = []
@@ -84,7 +84,6 @@ class GPIO:
         file.close()
 
     def setDirection(self,direction):
-	print PATH + "gpio" + str(self.pin_number) + "/direction"
         file = open(PATH + "gpio" + str(self.pin_number) + "/direction",'w')
         file.write(str(direction))
         file.close()
