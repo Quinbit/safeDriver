@@ -3,6 +3,9 @@ from flask import Flask, request
 from math import sqrt
 from statistics import mean
 
+import gpio
+
+
 app = Flask(__name__)
 
 count_threshold = 5
@@ -24,8 +27,17 @@ def post_points():
     print('x: ' + str(mean(p['x'] for p in points)))
     print('y: ' + str(mean(p['y'] for p in points)))
     print('z: ' + str(mean(p['z'] for p in points)))
-
     return ''
+
+@app.route('/brake', methods=['POST'])
+def brake():
+    gpio.brake()
+    return "Brake engaged"
+
+@app.route("/unbrake", methods=['POST'])
+def unbrake():
+    gpio.unbrake()
+    return "Brake disengaged"
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 8000)
