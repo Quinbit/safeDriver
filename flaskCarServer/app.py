@@ -3,7 +3,7 @@ from flask import Flask, request
 from math import sqrt
 from statistics import mean
 
-import gpio
+from gpio import GPIO
 
 
 app = Flask(__name__)
@@ -29,15 +29,17 @@ def post_points():
     print('z: ' + str(mean(p['z'] for p in points)))
     return ''
 
-@app.route('/brake', methods=['POST'])
-def brake():
-    gpio.brake()
-    return "Brake engaged"
+with GPIO() as gpio_interface:
+    @app.route('/brake', methods=['POST'])
+    def brake():
+        gpio_interface.brake()
+        return "Brake engaged"
 
-@app.route("/unbrake", methods=['POST'])
-def unbrake():
-    gpio.unbrake()
-    return "Brake disengaged"
+    @app.route("/unbrake", methods=['POST'])
+    def unbrake():
+        gpio_interface.unbrake()
+        return "Brake disengaged"
 
-if __name__ == "__main__":
-    app.run("0.0.0.0", 8000)
+    if __name__ == "__main__":
+        app.run("0.0.0.0", 8000)
+
