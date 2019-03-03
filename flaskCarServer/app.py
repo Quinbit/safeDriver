@@ -17,6 +17,7 @@ def hello_world():
 
 @app.route('/threshold', methods=['POST'])
 def posts_threshold():
+    global distance_threshold
     distance_threshold = json.loads(list(request.form.to_dict().keys())[0])['stuff']
     print('Setting threshold to: ' + str(distance_threshold))
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
