@@ -24,6 +24,9 @@ public var increaseAmount: Float = 0.05
 public var player: AVAudioPlayer!
 public var startTime: Double = 0
 public var duration: Double = 0.7
+public var state: Bool = false
+public var timeBreak: Double = 0.25
+public var soFar: Double = 0
 
 
 extension ViewController: ARSCNViewDelegate{
@@ -223,35 +226,77 @@ class ViewController: UIViewController {
     }
     
     func sendData(){
-        var adjusted: Array<Float> = Array()
         let sessionConfig = URLSessionConfiguration.default
         var mean: Float = 0
         var count: Float = 0
         sessionConfig.timeoutIntervalForRequest = 0.5
         sessionConfig.timeoutIntervalForResource = 0.5
         
+        
+        
         for p in oldPoints {
             let x = p[0] - pos!.transform[3][0]
             let y = p[1] - pos!.transform[3][1]
             let z = p[2] - pos!.transform[3][2]
-            adjusted.append((x*x + y*y + z*z).squareRoot())
+            //adjusted.append((x*x + y*y + z*z).squareRoot())
             //mean[0] = mean[0] + p[0] - pos[0]
             //mean[1] = mean[1] + p[1] - pos[1]
             //mean[2] = mean[2] + p[2] - pos[2]
-            mean = mean + (x*x + y*y + z*z).squareRoot()
-            count = count + 1
+            if y > 0.0 {
+                mean = mean + (x*x + y*y + z*z).squareRoot()
+                count = count + 1
+            }
         }
         
         if (mean / count) < threshold {
             //print("Increasing")
-            print(magnitude)
+            //print(magnitude)
             magnitude = min(magnitude + increaseAmount, MAXSOUNDS)
+            
+            if state == false {
+                state = true
+                print(state)
+            }
         } else {
             //print("Decreasing")
-            print(magnitude)
+            //print(magnitude)
             magnitude = max(magnitude - increaseAmount, MINSOUNDS)
+            
+            if state == true {
+                state = false
+                print(state)
+            }
         }
         
+        if (Date().timeIntervalSince1970 - soFar > timeBreak) {
+            soFar = Date().timeIntervalSince1970
+
+            let url: URL
+            if state == true {
+                url = URL(string: connectURL + "/brake")!
+            } else {
+                url = URL(string: connectURL + "/unbrake")!
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            // insert json data to the request
+            //request.httpBody = jsonData
+            
+            let task = URLSession(configuration: sessionConfig).dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+            }
+            
+            task.resume()
+        }
         //print(dist)
         //print(mean[0] / count, mean[1] / count)
         
@@ -260,36 +305,6 @@ class ViewController: UIViewController {
             
             self.playSound()
         }
-        
-        
-        
-        let json: [String: Any] = ["stuff": adjusted]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        // create post request10.42.0.1:8000
-        //172.20.10.2
-        let url = URL(string: connectURL + "/points")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        // insert json data to the request
-        request.httpBody = jsonData
-        
-        let task = URLSession(configuration: sessionConfig).dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
-            }
-        }
-        
-        task.resume()
-        
-        
 
     }
 
