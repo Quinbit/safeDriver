@@ -13,7 +13,23 @@
 		AF9B657F20AE4A150076666A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF9B657E20AE4A150076666A /* Assets.xcassets */; };
 		AF9B658220AE4A150076666A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9B658020AE4A150076666A /* LaunchScreen.storyboard */; };
 		AF9B658A20AE4C010076666A /* ARSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9B658920AE4C010076666A /* ARSettings.swift */; };
+		F20EE526222B6BC50032C7B7 /* soundName.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F20EE525222B6BC50032C7B7 /* soundName.mp3 */; };
+		F2190497222AE403003C47D9 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2190496222AE403003C47D9 /* CoreBluetooth.framework */; };
+		F21904B0222AE94E003C47D9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F21904AF222AE94E003C47D9 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F21904AE222AE92B003C47D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AF9B657420AE4A140076666A /* ARPoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +40,9 @@
 		AF9B658120AE4A150076666A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF9B658320AE4A150076666A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF9B658920AE4C010076666A /* ARSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSettings.swift; sourceTree = "<group>"; };
+		F20EE525222B6BC50032C7B7 /* soundName.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = soundName.mp3; sourceTree = "<group>"; };
+		F2190496222AE403003C47D9 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		F21904AF222AE94E003C47D9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21904B0222AE94E003C47D9 /* CoreLocation.framework in Frameworks */,
+				F2190497222AE403003C47D9 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,8 +61,10 @@
 		AF9B656B20AE4A140076666A = {
 			isa = PBXGroup;
 			children = (
+				F20EE525222B6BC50032C7B7 /* soundName.mp3 */,
 				AF9B657620AE4A140076666A /* ARPoints */,
 				AF9B657520AE4A140076666A /* Products */,
+				F2190495222AE402003C47D9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +98,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F2190495222AE402003C47D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F21904AF222AE94E003C47D9 /* CoreLocation.framework */,
+				F2190496222AE403003C47D9 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,6 +117,7 @@
 				AF9B657020AE4A140076666A /* Sources */,
 				AF9B657120AE4A140076666A /* Frameworks */,
 				AF9B657220AE4A140076666A /* Resources */,
+				F21904AE222AE92B003C47D9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -107,6 +140,11 @@
 				TargetAttributes = {
 					AF9B657320AE4A140076666A = {
 						CreatedOnToolsVersion = 9.4;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -133,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20EE526222B6BC50032C7B7 /* soundName.mp3 in Resources */,
 				AF9B658220AE4A150076666A /* LaunchScreen.storyboard in Resources */,
 				AF9B657F20AE4A150076666A /* Assets.xcassets in Resources */,
 				AF9B657D20AE4A140076666A /* Main.storyboard in Resources */,
@@ -291,15 +330,16 @@
 		AF9B658720AE4A150076666A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DHKEQ8PRAX;
+				DEVELOPMENT_TEAM = 9EU5CJ8BTB;
 				INFOPLIST_FILE = ARPoints/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.uk.blackMirrorz.ARPoints;
+				PRODUCT_BUNDLE_IDENTIFIER = DriveSafeMakeMIT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -309,15 +349,16 @@
 		AF9B658820AE4A150076666A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DHKEQ8PRAX;
+				DEVELOPMENT_TEAM = 9EU5CJ8BTB;
 				INFOPLIST_FILE = ARPoints/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.uk.blackMirrorz.ARPoints;
+				PRODUCT_BUNDLE_IDENTIFIER = DriveSafeMakeMIT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
