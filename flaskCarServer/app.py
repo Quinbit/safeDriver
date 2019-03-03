@@ -30,7 +30,7 @@ with GPIO() as gpio_interface:
     def unbrake():
         gpio_interface.unbrake()
 
-    @app.route('/points', methods=['POST'])
+    # @app.route('/points', methods=['POST'])
     # def post_points():
     #     distances = json.loads(list(request.form.to_dict().keys())[0])['stuff']
     #
