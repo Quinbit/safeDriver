@@ -1,3 +1,8 @@
+import time
+
+min_interval = 0.1  # in seconds
+
+
 class GPIOProcessor:
     """This is the GPIO Processor class.  IT is used to create GPIO objects and
     keep track of them. Pins 23-34 have the their corresponding GPIO number
@@ -72,6 +77,7 @@ class GPIO:
 
     def __init__(self,pin_number):
         self.pin_number = pin_number
+        self.last_time = time.time()
 
     def openPin(self):
         file = open(PATH + "export",'w')
@@ -89,6 +95,8 @@ class GPIO:
         file.close()
 
     def setValue(self,value):
+        if time.time() - self.last_time < min_interval:
+            raise Exception("Call was too frequent")
         file = open(PATH + "gpio" + str(self.pin_number) + "/value",'w')
         file.write(str(value))
         file.close()

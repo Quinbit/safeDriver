@@ -31,15 +31,18 @@ with GPIO() as gpio_interface:
         closest_distance = distances[0] if len(distances) > 0 else None
 
         print('Closest distance is: ' + str(closest_distance))
-        if closest_distance and closest_distance < distance_threshold:
-            print('Braking')
-            gpio_interface.brake()
-        else:
-            print('No brake')
-            gpio_interface.unbrake()
-
-        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
-
+        try:
+            if closest_distance and closest_distance < distance_threshold:
+                print('Braking')
+                gpio_interface.brake()
+            else:
+                print('No brake')
+                gpio_interface.unbrake()
+            return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+        except Exception as e:
+            if "Call was too frequent" in str(e):
+                return json.dumps({'success': False}), 429, {'ContentType': 'application/json'}
+            raise
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 8000)
