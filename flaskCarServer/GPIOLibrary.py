@@ -1,6 +1,6 @@
 import time
 
-min_interval = 0.1  # in seconds
+min_interval = 2.0  # in seconds
 
 
 class GPIOProcessor:

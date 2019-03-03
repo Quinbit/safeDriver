@@ -22,6 +22,14 @@ def posts_threshold():
 
 
 with GPIO() as gpio_interface:
+    @app.route('/brake', methods=['POST', 'GET'])
+    def brake():
+        gpio_interface.brake()
+
+    @app.route('/unbrake', methods=['POST', 'GET'])
+    def unbrake():
+        gpio_interface.unbrake()
+
     @app.route('/points', methods=['POST'])
     def post_points():
         distances = json.loads(list(request.form.to_dict().keys())[0])['stuff']
