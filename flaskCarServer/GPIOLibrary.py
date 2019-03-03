@@ -97,6 +97,7 @@ class GPIO:
     def setValue(self,value):
         if time.time() - self.last_time < min_interval:
             raise Exception("Call was too frequent")
+        self.last_time = time.time()
         file = open(PATH + "gpio" + str(self.pin_number) + "/value",'w')
         file.write(str(value))
         file.close()
