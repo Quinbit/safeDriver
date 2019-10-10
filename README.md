@@ -1,28 +1,10 @@
 
-# ARKitPointCloud
+# Drive Safe
 
-This project is a basic example of visualizing a `pointCloud` in `ARKit` using the `rawFeaturePoints` available from the `ARSession` current frame.
+This project is designed to be a universally applicable self driving assistant. 
 
-All the code is fully commented so the apps functionality should be clear to everyone.
+It is intended to act as an emergency turning and breaking system for whenever the car is about to crash into another object. It uses machine vision to estimate the depth of upcoming objects and acts accordingly. It is designed to be able to be plugged directly into the bus of any vehicle
 
-**Branches:**
+**Results:**
 
-The Master Branch was originally compiled in XCode10 Beta using Swift 4.
-
-An updated Branch called 'Swift4.2' contains the project built in XCode 10.5 Beta and uses Swift 4.2.
-
-**Requirements:**
-
-The project is setup for iPhone, and in Portait Orientation.
-
-**Core Functionality:**
-
-This project visualizes the `rawFeaturePoints` from the `ARSession`, and displays these as `SCNNodes`, alongside a `UILabel` which displays the number of `rawFeaturePoints` which have been detected. 
-
-**Notes:**
-
-Please note, that the use of this is not recommended for any distrubuted application.
-
-The performance isn't great (although some gains were made) using the `clone` function of `SCNNode`.
-
-As `Apple` also stipulates: *`ARKit` does not guarantee that the number and arrangement of raw feature points will remain stable between software releases, or even between subsequent frames in the same session. Regardless, the point cloud can sometimes prove useful when debugging your app's placement of virtual objects into the real-world scene.*
+This project was a finalist of MakeMIT. Details of the end product can be found on our devpost repo: https://devpost.com/software/drive-safe-67ryzn
